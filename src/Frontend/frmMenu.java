@@ -61,6 +61,11 @@ public class frmMenu extends javax.swing.JFrame {
         });
 
         btnRegistroDeVenta.setText("Registro de Venta");
+        btnRegistroDeVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistroDeVentaActionPerformed(evt);
+            }
+        });
 
         btnReporteria.setText("Reporteria");
         btnReporteria.addActionListener(new java.awt.event.ActionListener() {
@@ -99,12 +104,31 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistroDeProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroDeProductoActionPerformed
-        // TODO add your handling code here:
+
+        frmProducto objProducto = new frmProducto();
+        this.setVisible(false);
+        objProducto.setVisible(true);
+
+
     }//GEN-LAST:event_btnRegistroDeProductoActionPerformed
 
     private void btnReporteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteriaActionPerformed
-        // TODO add your handling code here:
+       
+        frmReporteria objReporte = new frmReporteria();
+        this.setVisible(false);
+        objReporte.setVisible(true);
+        
+        
     }//GEN-LAST:event_btnReporteriaActionPerformed
+
+    private void btnRegistroDeVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroDeVentaActionPerformed
+        
+        frmVenta objVenta = new frmVenta();
+        this.setVisible(false);
+        objVenta.setVisible(true);
+        
+        
+    }//GEN-LAST:event_btnRegistroDeVentaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -126,9 +126,9 @@ public class frmLogin extends javax.swing.JFrame {
 
         if (objValidacion.fncLogin(ctUsuario.getText(), String.valueOf(ctPassword.getPassword()))) {
 
-            frmMenu ObjVentana = new frmMenu();
+            frmMenu objMenu = new frmMenu();
             this.setVisible(false);
-            ObjVentana.setVisible(true);
+            objMenu.setVisible(true);
 
         } else {
             JOptionPane.showMessageDialog(null, "Credenciales de acceso incorrectas.", "ERROR DE AUTENTICACION", JOptionPane.ERROR_MESSAGE);
