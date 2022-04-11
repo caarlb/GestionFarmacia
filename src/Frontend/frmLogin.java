@@ -4,6 +4,10 @@
  */
 package Frontend;
 
+import Data.clsQuerys;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author caarlb
@@ -118,12 +122,19 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_ctUsuarioActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
-        
-        frmMenu ObjVentana = new frmMenu();
-        this.setVisible(false);
-        ObjVentana.setVisible(true);
-        
+
+        clsQuerys objValidacion = new clsQuerys();
+
+        if (objValidacion.fncLogin(ctUsuario.getText(), String.valueOf(ctPassword.getPassword()))) {
+
+            frmMenu ObjVentana = new frmMenu();
+            this.setVisible(false);
+            ObjVentana.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Credenciales de acceso incorrectas.", "ERROR DE AUTENTICACION", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
