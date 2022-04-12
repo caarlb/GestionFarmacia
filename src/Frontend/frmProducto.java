@@ -15,8 +15,15 @@ public class frmProducto extends javax.swing.JFrame {
      */
     public frmProducto() {
         initComponents();
+        condicionesIniciales();
     }
 
+    private void condicionesIniciales(){
+        btnGuardarNuevo.setVisible(false);
+        btnGuardarEditado.setVisible(false);
+        btnCancelarEditado.setVisible(false);
+        btnCancelarNuevo.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +43,7 @@ public class frmProducto extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         ctTipo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cdFarmaceutica = new javax.swing.JTextField();
+        ctFarmaceutica = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         ctPresentacion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -46,12 +53,15 @@ public class frmProducto extends javax.swing.JFrame {
         ctStock = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         ctPrecio = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
+        btnGuardarNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         tblProductos = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        btnGuardarEditado = new javax.swing.JButton();
+        btnCancelarNuevo = new javax.swing.JButton();
+        btnCancelarEditado = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,65 +78,100 @@ public class frmProducto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PRODUCTO");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("PRODUCTOS");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 13, -1, -1));
 
         jLabel2.setText("CODIGO:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 61, -1, -1));
 
+        ctCodigo.setEditable(false);
         ctCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctCodigoActionPerformed(evt);
             }
         });
+        getContentPane().add(ctCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 58, 287, -1));
 
         jLabel3.setText("NOMBRE:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 96, -1, -1));
 
+        ctNombre.setEditable(false);
         ctNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctNombreActionPerformed(evt);
             }
         });
+        getContentPane().add(ctNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 93, 287, -1));
 
         jLabel4.setText("TIPO:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 131, -1, -1));
 
+        ctTipo.setEditable(false);
         ctTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctTipoActionPerformed(evt);
             }
         });
+        getContentPane().add(ctTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 128, 287, -1));
 
         jLabel5.setText("FARMACEUTICA:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 166, -1, -1));
 
-        cdFarmaceutica.addActionListener(new java.awt.event.ActionListener() {
+        ctFarmaceutica.setEditable(false);
+        ctFarmaceutica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cdFarmaceuticaActionPerformed(evt);
+                ctFarmaceuticaActionPerformed(evt);
             }
         });
+        getContentPane().add(ctFarmaceutica, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 162, 287, 25));
 
         jLabel6.setText("PRESENTACION:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 62, -1, -1));
 
+        ctPresentacion.setEditable(false);
         ctPresentacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctPresentacionActionPerformed(evt);
             }
         });
+        getContentPane().add(ctPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(504, 59, 160, -1));
 
         jLabel7.setText("COMPOSICION:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 100, -1, -1));
 
+        ctComposicion.setEditable(false);
         ctComposicion.setColumns(20);
         ctComposicion.setRows(5);
         jScrollPane1.setViewportView(ctComposicion);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 250, 94));
+
         jLabel8.setText("STOCK:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 203, -1, -1));
+
+        ctStock.setEditable(false);
+        getContentPane().add(ctStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 200, 123, -1));
 
         jLabel9.setText("PRECIO:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 203, -1, -1));
 
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        ctPrecio.setEditable(false);
+        ctPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                ctPrecioActionPerformed(evt);
             }
         });
+        getContentPane().add(ctPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 200, 108, -1));
+
+        btnGuardarNuevo.setText("GUARDAR");
+        btnGuardarNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarNuevoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGuardarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 141, -1));
 
         btnEditar.setText("EDITAR");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +179,7 @@ public class frmProducto extends javax.swing.JFrame {
                 btnEditarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 96, 123, -1));
 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +187,7 @@ public class frmProducto extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 134, 123, -1));
 
         btnNuevo.setText("NUEVO");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +195,7 @@ public class frmProducto extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 58, 123, -1));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,115 +211,31 @@ public class frmProducto extends javax.swing.JFrame {
         jTable2.setCellSelectionEnabled(true);
         tblProductos.setViewportView(jTable2);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(50, 50, 50)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel9)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(ctCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ctNombre, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(ctTipo, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(cdFarmaceutica, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ctPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ctStock, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                            .addComponent(ctPresentacion)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(337, 337, 337)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tblProductos)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(ctCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(ctNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(ctTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(cdFarmaceutica, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(ctPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(77, 77, 77))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(ctPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(ctStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnEditar)
-                    .addComponent(btnEliminar))
-                .addGap(33, 33, 33)
-                .addComponent(tblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        getContentPane().add(tblProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 499, 129));
+
+        btnGuardarEditado.setText("GUARDAR");
+        btnGuardarEditado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarEditadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGuardarEditado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 141, -1));
+
+        btnCancelarNuevo.setText("CANCELAR");
+        btnCancelarNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarNuevoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCancelarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 141, -1));
+
+        btnCancelarEditado.setText("CANCELAR");
+        btnCancelarEditado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarEditadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCancelarEditado, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 141, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -292,16 +256,21 @@ public class frmProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ctPresentacionActionPerformed
 
-    private void cdFarmaceuticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cdFarmaceuticaActionPerformed
+    private void ctFarmaceuticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctFarmaceuticaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cdFarmaceuticaActionPerformed
+    }//GEN-LAST:event_ctFarmaceuticaActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnGuardarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnGuardarNuevoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+       
+        desbloquearCajasDeTexto();
+        btnGuardarEditado.setVisible(true);
+        btnCancelarEditado.setVisible(true);
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -309,9 +278,67 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
+        
+        desbloquearCajasDeTexto();
+        limpiarCajasDeTexto();
+        btnGuardarNuevo.setVisible(true);
+        btnCancelarNuevo.setVisible(true);
+        
+        
+        
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void btnGuardarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEditadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarEditadoActionPerformed
+
+    private void ctPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ctPrecioActionPerformed
+
+    private void btnCancelarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarNuevoActionPerformed
+        condicionesIniciales();
+        bloquearCajasDeTexto();
+    }//GEN-LAST:event_btnCancelarNuevoActionPerformed
+
+    private void btnCancelarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditadoActionPerformed
+        condicionesIniciales();
+        bloquearCajasDeTexto();
+    }//GEN-LAST:event_btnCancelarEditadoActionPerformed
+
+    private void limpiarCajasDeTexto(){
+        ctCodigo.setText("");
+        ctNombre.setText("");
+        ctTipo.setText("");
+        ctFarmaceutica.setText("");
+        ctPrecio.setText("");
+        ctStock.setText("");
+        ctPresentacion.setText("");
+        ctComposicion.setText("");        
+    }
+    
+    private void bloquearCajasDeTexto(){
+        ctCodigo.setEditable(false);
+        ctNombre.setEditable(false);
+        ctTipo.setEditable(false);
+        ctFarmaceutica.setEditable(false);
+        ctPrecio.setEditable(false);
+        ctStock.setEditable(false);
+        ctPresentacion.setEditable(false);
+        ctComposicion.setEditable(false);
+    }
+    
+    private void desbloquearCajasDeTexto(){
+        ctCodigo.setEditable(true);
+        ctNombre.setEditable(true);
+        ctTipo.setEditable(true);
+        ctFarmaceutica.setEditable(true);
+        ctPrecio.setEditable(true);
+        ctStock.setEditable(true);
+        ctPresentacion.setEditable(true);
+        ctComposicion.setEditable(true);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -348,13 +375,16 @@ public class frmProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelarEditado;
+    private javax.swing.JButton btnCancelarNuevo;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnGuardarEditado;
+    private javax.swing.JButton btnGuardarNuevo;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JTextField cdFarmaceutica;
     private javax.swing.JTextField ctCodigo;
     private javax.swing.JTextArea ctComposicion;
+    private javax.swing.JTextField ctFarmaceutica;
     private javax.swing.JTextField ctNombre;
     private javax.swing.JTextField ctPrecio;
     private javax.swing.JTextField ctPresentacion;
