@@ -17,7 +17,7 @@ public class clsConexion {
             Connection con = DriverManager.getConnection(Cadena);
             return con;
         } catch (SQLException ex) {
-            System.out.println("Erro: " + ex.toString());
+            System.out.println("Error: " + ex.toString());
             return null;
         } finally {
         }

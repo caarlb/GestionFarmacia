@@ -4,6 +4,9 @@
  */
 package Frontend;
 
+import Data.clsQuerys;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author caarlb
@@ -18,12 +21,13 @@ public class frmProducto extends javax.swing.JFrame {
         condicionesIniciales();
     }
 
-    private void condicionesIniciales(){
+    private void condicionesIniciales() {
         btnGuardarNuevo.setVisible(false);
         btnGuardarEditado.setVisible(false);
         btnCancelarEditado.setVisible(false);
         btnCancelarNuevo.setVisible(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +41,6 @@ public class frmProducto extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        ctCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         ctNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -62,6 +65,7 @@ public class frmProducto extends javax.swing.JFrame {
         btnGuardarEditado = new javax.swing.JButton();
         btnCancelarNuevo = new javax.swing.JButton();
         btnCancelarEditado = new javax.swing.JButton();
+        ctCodigo = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,14 +89,6 @@ public class frmProducto extends javax.swing.JFrame {
 
         jLabel2.setText("CODIGO:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 61, -1, -1));
-
-        ctCodigo.setEditable(false);
-        ctCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ctCodigoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ctCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 58, 287, -1));
 
         jLabel3.setText("NOMBRE:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 96, -1, -1));
@@ -236,13 +232,10 @@ public class frmProducto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelarEditado, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 141, -1));
+        getContentPane().add(ctCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 90, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ctCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ctCodigoActionPerformed
 
     private void ctNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctNombreActionPerformed
         // TODO add your handling code here:
@@ -261,16 +254,29 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_ctFarmaceuticaActionPerformed
 
     private void btnGuardarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoActionPerformed
-        // TODO add your handling code here:
+        if (verificarCamposCompletados()) {
+            clsQuerys objInsert = new clsQuerys();
+
+            if (objInsert.fncInsertProduct(ctNombre.getText(),
+                    ctTipo.getText(),
+                    ctFarmaceutica.getText(),
+                    ctPresentacion.getText(),
+                    ctComposicion.getText(),
+                    ctStock.getText(),
+                    ctPrecio.getText()
+            )) {
+                JOptionPane.showMessageDialog(null, "AVISO", "Datos guardados correctamente", JOptionPane.OK_OPTION);
+            }
+        }
     }//GEN-LAST:event_btnGuardarNuevoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       
+
         desbloquearCajasDeTexto();
         btnGuardarEditado.setVisible(true);
         btnCancelarEditado.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -278,14 +284,13 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        
+
         desbloquearCajasDeTexto();
         limpiarCajasDeTexto();
         btnGuardarNuevo.setVisible(true);
         btnCancelarNuevo.setVisible(true);
-        
-        
-        
+
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEditadoActionPerformed
@@ -298,15 +303,17 @@ public class frmProducto extends javax.swing.JFrame {
 
     private void btnCancelarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarNuevoActionPerformed
         condicionesIniciales();
+        limpiarCajasDeTexto();
         bloquearCajasDeTexto();
     }//GEN-LAST:event_btnCancelarNuevoActionPerformed
 
     private void btnCancelarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditadoActionPerformed
         condicionesIniciales();
+        limpiarCajasDeTexto();
         bloquearCajasDeTexto();
     }//GEN-LAST:event_btnCancelarEditadoActionPerformed
 
-    private void limpiarCajasDeTexto(){
+    private void limpiarCajasDeTexto() {
         ctCodigo.setText("");
         ctNombre.setText("");
         ctTipo.setText("");
@@ -314,11 +321,10 @@ public class frmProducto extends javax.swing.JFrame {
         ctPrecio.setText("");
         ctStock.setText("");
         ctPresentacion.setText("");
-        ctComposicion.setText("");        
+        ctComposicion.setText("");
     }
-    
-    private void bloquearCajasDeTexto(){
-        ctCodigo.setEditable(false);
+
+    private void bloquearCajasDeTexto() {
         ctNombre.setEditable(false);
         ctTipo.setEditable(false);
         ctFarmaceutica.setEditable(false);
@@ -327,9 +333,8 @@ public class frmProducto extends javax.swing.JFrame {
         ctPresentacion.setEditable(false);
         ctComposicion.setEditable(false);
     }
-    
-    private void desbloquearCajasDeTexto(){
-        ctCodigo.setEditable(true);
+
+    private void desbloquearCajasDeTexto() {
         ctNombre.setEditable(true);
         ctTipo.setEditable(true);
         ctFarmaceutica.setEditable(true);
@@ -338,7 +343,19 @@ public class frmProducto extends javax.swing.JFrame {
         ctPresentacion.setEditable(true);
         ctComposicion.setEditable(true);
     }
-    
+
+    private boolean verificarCamposCompletados() {
+
+        return !"".equals(ctPrecio.getText())
+                && !"".equals(ctNombre.getText())
+                && !"".equals(ctTipo.getText())
+                && !"".equals(ctFarmaceutica.getText())
+                && !"".equals(ctPresentacion.getText())
+                && !"".equals(ctComposicion.getText())
+                && !"".equals(ctStock.getText());
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -382,7 +399,7 @@ public class frmProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarEditado;
     private javax.swing.JButton btnGuardarNuevo;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JTextField ctCodigo;
+    private javax.swing.JLabel ctCodigo;
     private javax.swing.JTextArea ctComposicion;
     private javax.swing.JTextField ctFarmaceutica;
     private javax.swing.JTextField ctNombre;
