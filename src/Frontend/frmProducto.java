@@ -29,6 +29,9 @@ public class frmProducto extends javax.swing.JFrame {
         btnGuardarEditado.setVisible(false);
         btnCancelarEditado.setVisible(false);
         btnCancelarNuevo.setVisible(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        System.gc();
     }
 
     /**
@@ -162,6 +165,11 @@ public class frmProducto extends javax.swing.JFrame {
                 ctPrecioActionPerformed(evt);
             }
         });
+        ctPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ctPrecioKeyTyped(evt);
+            }
+        });
         getContentPane().add(ctPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 200, 108, -1));
 
         btnGuardarNuevo.setText("GUARDAR");
@@ -224,7 +232,7 @@ public class frmProducto extends javax.swing.JFrame {
         });
         jScrollPanel.setViewportView(tbProductos);
 
-        getContentPane().add(jScrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 800, 129));
+        getContentPane().add(jScrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 800, 270));
 
         btnGuardarEditado.setText("GUARDAR");
         btnGuardarEditado.addActionListener(new java.awt.event.ActionListener() {
@@ -249,6 +257,8 @@ public class frmProducto extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCancelarEditado, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 141, -1));
+
+        ctCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(ctCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 90, 20));
 
         pack();
@@ -271,7 +281,7 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_ctFarmaceuticaActionPerformed
 
     private void btnGuardarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNuevoActionPerformed
-        if (verificarCamposCompletados()) {
+        if (cumpleRequerimientos()) {
             clsQuerys objInsert = new clsQuerys();
 
             if (objInsert.fncInsertProduct(ctNombre.getText(),
@@ -282,16 +292,41 @@ public class frmProducto extends javax.swing.JFrame {
                     ctStock.getText(),
                     ctPrecio.getText()
             )) {
-                JOptionPane.showMessageDialog(null, "AVISO", "Datos guardados correctamente", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "Datos guardados correctamente", "AVISO", JOptionPane.OK_OPTION);
             }
             limpiarCajasDeTexto();
             bloquearCajasDeTexto();
             mostrarProductosEnTabla();
+            condicionesIniciales();
+        } else {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos, Stock y precio son valores numericos", "AVISOS", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_btnGuardarNuevoActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    private boolean cumpleRequerimientos() {
+        return verificarCamposCompletados() && esEntero(ctStock.getText()) && esDecimal(ctPrecio.getText());
+    }
 
+    private static boolean esEntero(String numero) {
+        try {
+            Integer.parseInt(numero);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    private static boolean esDecimal(String numero) {
+        try {
+            Double.parseDouble(numero);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        condicionesIniciales();
         desbloquearCajasDeTexto();
         btnGuardarEditado.setVisible(true);
         btnCancelarEditado.setVisible(true);
@@ -304,7 +339,7 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-
+        condicionesIniciales();
         desbloquearCajasDeTexto();
         limpiarCajasDeTexto();
         btnGuardarNuevo.setVisible(true);
@@ -314,7 +349,28 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEditadoActionPerformed
-        // TODO add your handling code here:
+        if (cumpleRequerimientos()) {
+            clsQuerys objUpdate = new clsQuerys();
+
+            if (objUpdate.fncUpdateProduct(
+                    ctCodigo.getText(),
+                    ctNombre.getText(),
+                    ctTipo.getText(),
+                    ctFarmaceutica.getText(),
+                    ctPresentacion.getText(),
+                    ctStock.getText(),
+                    ctPrecio.getText(),
+                    ctComposicion.getText()
+            )) {
+                JOptionPane.showMessageDialog(null, "Datos Actualizados Correctamente", "AVISO", JOptionPane.OK_OPTION);
+            }
+            limpiarCajasDeTexto();
+            bloquearCajasDeTexto();
+            mostrarProductosEnTabla();
+            condicionesIniciales();
+        } else {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos, Stock y Precio son valores numericos", "AVISOS", JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_btnGuardarEditadoActionPerformed
 
     private void ctPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctPrecioActionPerformed
@@ -335,6 +391,11 @@ public class frmProducto extends javax.swing.JFrame {
 
     private void tbProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosMouseClicked
         if (evt.getClickCount() == 2) {
+            condicionesIniciales();
+            btnEditar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+            bloquearCajasDeTexto();
+
             DefaultTableModel modeloConDatos = (DefaultTableModel) tbProductos.getModel();
 
             String indiceDatoSeleccionado = (String) modeloConDatos.getValueAt(tbProductos.getSelectedRow(), 0);
@@ -353,6 +414,11 @@ public class frmProducto extends javax.swing.JFrame {
             System.gc();
         }
     }//GEN-LAST:event_tbProductosMouseClicked
+
+    private void ctPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ctPrecioKeyTyped
+
+
+    }//GEN-LAST:event_ctPrecioKeyTyped
 
     public void mostrarProductosEnTabla() {
         clsQuerys objRead = new clsQuerys();

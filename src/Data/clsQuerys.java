@@ -60,10 +60,6 @@ public class clsQuerys {
 
             System.out.println(Query);
             Resp = true;
-            /*ResultSet resultado = sql.executeQuery(Query);
-            if (resultado != null && resultado.next()) {
-                Resp = true;
-            }*/
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.toString());
         }
@@ -112,10 +108,10 @@ public class clsQuerys {
 
         try {
             Statement sql = clsConexion.getConexion().createStatement();
-            String query = "SELECT * FROM TB_PRODUCTO WHERE COD_PRODUCTO = " + indice +";";
+            String query = "SELECT * FROM TB_PRODUCTO WHERE COD_PRODUCTO = " + indice + ";";
             System.out.println(query);
             ResultSet resultado = sql.executeQuery(query);
-            if (resultado != null && resultado.next()){
+            if (resultado != null && resultado.next()) {
                 detallesDeProducto[0] = resultado.getString("COD_PRODUCTO");
                 detallesDeProducto[1] = resultado.getString("NOMBRE");
                 detallesDeProducto[2] = resultado.getString("TIPO_MEDICAMENTO");
@@ -123,11 +119,47 @@ public class clsQuerys {
                 detallesDeProducto[4] = resultado.getString("PRESENTACION");
                 detallesDeProducto[5] = resultado.getString("STOCK");
                 detallesDeProducto[6] = resultado.getString("PRECIO");
-                detallesDeProducto[7] = resultado.getString("COMPOSICION");                
+                detallesDeProducto[7] = resultado.getString("COMPOSICION");
             }
         } catch (Exception e) {
         }
 
         return detallesDeProducto;
     }
+
+    public Boolean fncUpdateProduct(
+            String pCodigo,
+            String pNombre,
+            String pTipo,
+            String pFarmaceutica,
+            String pPresentacion,
+            String pStock,
+            String pPrecio,
+            String pComposicion) {
+        boolean Resp = false;
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String Query
+                    = "UPDATE TB_PRODUCTO SET "
+                    + "NOMBRE = '" + pNombre + "',"
+                    + "TIPO_MEDICAMENTO = '" + pTipo + "',"
+                    + "FARMACEUTICA = '" + pFarmaceutica + "',"
+                    + "PRESENTACION = '" + pPresentacion + "',"
+                    + "STOCK = " + pStock + ","
+                    + "PRECIO = " + pPrecio + ","
+                    + "COMPOSICION = '" + pComposicion + "'"
+                    + "WHERE COD_PRODUCTO = " + pCodigo + ";";
+
+            sql.executeUpdate(Query);
+
+            System.out.println(Query);
+            Resp = true;
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return Resp;
+    }
+
 }
