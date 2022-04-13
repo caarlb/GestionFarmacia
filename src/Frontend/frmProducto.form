@@ -290,7 +290,7 @@
     <Container class="javax.swing.JScrollPane" name="jScrollPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="12" y="299" width="499" height="129"/>
+          <AbsoluteConstraints x="12" y="299" width="800" height="129"/>
         </Constraint>
       </Constraints>
 
@@ -306,8 +306,13 @@
                 <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
-            <Property name="cellSelectionEnabled" type="boolean" value="true"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbProductosMouseClicked"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tbProductos = new JTable(){&#xa;    public boolean isCellEditable(int row, int column){&#xa;        for(int i=0; i&lt;tbProductos.getRowCount(); i++){&#xa;            if(row == i){&#xa;                return false;&#xa;            }&#xa;        }&#xa;        return true;&#xa;    }&#xa;};"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

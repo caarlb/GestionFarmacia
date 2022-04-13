@@ -6,6 +6,8 @@ package Frontend;
 
 import Data.clsQuerys;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -194,6 +196,16 @@ public class frmProducto extends javax.swing.JFrame {
         });
         getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 58, 123, -1));
 
+        tbProductos = new JTable(){
+            public boolean isCellEditable(int row, int column){
+                for(int i=0; i<tbProductos.getRowCount(); i++){
+                    if(row == i){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
         tbProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -205,10 +217,14 @@ public class frmProducto extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tbProductos.setCellSelectionEnabled(true);
+        tbProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProductosMouseClicked(evt);
+            }
+        });
         jScrollPanel.setViewportView(tbProductos);
 
-        getContentPane().add(jScrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 499, 129));
+        getContentPane().add(jScrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 800, 129));
 
         btnGuardarEditado.setText("GUARDAR");
         btnGuardarEditado.addActionListener(new java.awt.event.ActionListener() {
@@ -268,6 +284,9 @@ public class frmProducto extends javax.swing.JFrame {
             )) {
                 JOptionPane.showMessageDialog(null, "AVISO", "Datos guardados correctamente", JOptionPane.OK_OPTION);
             }
+            limpiarCajasDeTexto();
+            bloquearCajasDeTexto();
+            mostrarProductosEnTabla();
         }
     }//GEN-LAST:event_btnGuardarNuevoActionPerformed
 
@@ -314,12 +333,32 @@ public class frmProducto extends javax.swing.JFrame {
         bloquearCajasDeTexto();
     }//GEN-LAST:event_btnCancelarEditadoActionPerformed
 
-    
-    public void mostrarProductosEnTabla(){
+    private void tbProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosMouseClicked
+        if (evt.getClickCount() == 2) {
+            DefaultTableModel modeloConDatos = (DefaultTableModel) tbProductos.getModel();
+
+            String indiceDatoSeleccionado = (String) modeloConDatos.getValueAt(tbProductos.getSelectedRow(), 0);
+            System.out.println("el campos es: " + indiceDatoSeleccionado);
+
+            clsQuerys objOneProducto = new clsQuerys();
+            String[] detalleProductoIndividual = objOneProducto.fcnDetalleUnProducto(indiceDatoSeleccionado);
+            ctCodigo.setText(detalleProductoIndividual[0]);
+            ctNombre.setText(detalleProductoIndividual[1]);
+            ctTipo.setText(detalleProductoIndividual[2]);
+            ctFarmaceutica.setText(detalleProductoIndividual[3]);
+            ctPresentacion.setText(detalleProductoIndividual[4]);
+            ctStock.setText(detalleProductoIndividual[5]);
+            ctPrecio.setText(detalleProductoIndividual[6]);
+            ctComposicion.setText(detalleProductoIndividual[7]);
+            System.gc();
+        }
+    }//GEN-LAST:event_tbProductosMouseClicked
+
+    public void mostrarProductosEnTabla() {
         clsQuerys objRead = new clsQuerys();
         tbProductos.setModel(objRead.fcnShowProductsList());
     }
-    
+
     private void limpiarCajasDeTexto() {
         ctCodigo.setText("");
         ctNombre.setText("");
@@ -394,7 +433,7 @@ public class frmProducto extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmProducto().setVisible(true);
-                
+
             }
         });
     }

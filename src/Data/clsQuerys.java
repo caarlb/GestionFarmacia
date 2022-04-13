@@ -100,12 +100,34 @@ public class clsQuerys {
                 datosDeProductos[7] = resultado.getString("COMPOSICION");
                 modeloConDatos.addRow(datosDeProductos);
             }
-
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.toString());
         }
-
         return modeloConDatos;
     }
 
+    public String[] fcnDetalleUnProducto(String indice) {
+
+        String[] detallesDeProducto = new String[8];
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String query = "SELECT * FROM TB_PRODUCTO WHERE COD_PRODUCTO = " + indice +";";
+            System.out.println(query);
+            ResultSet resultado = sql.executeQuery(query);
+            if (resultado != null && resultado.next()){
+                detallesDeProducto[0] = resultado.getString("COD_PRODUCTO");
+                detallesDeProducto[1] = resultado.getString("NOMBRE");
+                detallesDeProducto[2] = resultado.getString("TIPO_MEDICAMENTO");
+                detallesDeProducto[3] = resultado.getString("FARMACEUTICA");
+                detallesDeProducto[4] = resultado.getString("PRESENTACION");
+                detallesDeProducto[5] = resultado.getString("STOCK");
+                detallesDeProducto[6] = resultado.getString("PRECIO");
+                detallesDeProducto[7] = resultado.getString("COMPOSICION");                
+            }
+        } catch (Exception e) {
+        }
+
+        return detallesDeProducto;
+    }
 }
