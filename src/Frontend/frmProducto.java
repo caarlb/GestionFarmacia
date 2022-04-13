@@ -19,6 +19,7 @@ public class frmProducto extends javax.swing.JFrame {
     public frmProducto() {
         initComponents();
         condicionesIniciales();
+        mostrarProductosEnTabla();
     }
 
     private void condicionesIniciales() {
@@ -60,8 +61,8 @@ public class frmProducto extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
-        tblProductos = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPanel = new javax.swing.JScrollPane();
+        tbProductos = new javax.swing.JTable();
         btnGuardarEditado = new javax.swing.JButton();
         btnCancelarNuevo = new javax.swing.JButton();
         btnCancelarEditado = new javax.swing.JButton();
@@ -193,7 +194,7 @@ public class frmProducto extends javax.swing.JFrame {
         });
         getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(682, 58, 123, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -204,10 +205,10 @@ public class frmProducto extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable2.setCellSelectionEnabled(true);
-        tblProductos.setViewportView(jTable2);
+        tbProductos.setCellSelectionEnabled(true);
+        jScrollPanel.setViewportView(tbProductos);
 
-        getContentPane().add(tblProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 499, 129));
+        getContentPane().add(jScrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 299, 499, 129));
 
         btnGuardarEditado.setText("GUARDAR");
         btnGuardarEditado.addActionListener(new java.awt.event.ActionListener() {
@@ -313,6 +314,12 @@ public class frmProducto extends javax.swing.JFrame {
         bloquearCajasDeTexto();
     }//GEN-LAST:event_btnCancelarEditadoActionPerformed
 
+    
+    public void mostrarProductosEnTabla(){
+        clsQuerys objRead = new clsQuerys();
+        tbProductos.setModel(objRead.fcnShowProductsList());
+    }
+    
     private void limpiarCajasDeTexto() {
         ctCodigo.setText("");
         ctNombre.setText("");
@@ -387,6 +394,7 @@ public class frmProducto extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmProducto().setVisible(true);
+                
             }
         });
     }
@@ -418,8 +426,8 @@ public class frmProducto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPanel;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JScrollPane tblProductos;
+    private javax.swing.JTable tbProductos;
     // End of variables declaration//GEN-END:variables
 }

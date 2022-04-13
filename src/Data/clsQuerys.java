@@ -4,6 +4,7 @@ import Backend.clsConexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,9 +21,9 @@ public class clsQuerys {
         try {
 
             Statement sql = clsConexion.getConexion().createStatement();
-            String Query = "SELECT CUI FROM TB_USUARIO WHERE USUARIO = '" + pUsuario + "' AND PASS = '" + pPass + "';";
-            System.out.println(Query);
-            ResultSet resultado = sql.executeQuery(Query);
+            String query = "SELECT CUI FROM TB_USUARIO WHERE USUARIO = '" + pUsuario + "' AND PASS = '" + pPass + "';";
+            System.out.println(query);
+            ResultSet resultado = sql.executeQuery(query);
             if (resultado != null && resultado.next()) {
                 Resp = true;
             }
@@ -68,6 +69,43 @@ public class clsQuerys {
         }
 
         return Resp;
+    }
+
+    public DefaultTableModel fcnShowProductsList() {
+        String[] titulosColumnas = {"Codigo",
+            "Nombre",
+            "Tipo",
+            "Farmaceutica",
+            "Presentacion",
+            "Stock",
+            "Precio",
+            "Composicion"};
+        String[] datosDeProductos = new String[8];
+
+        DefaultTableModel modeloConDatos = new DefaultTableModel(null, titulosColumnas);
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String query = "SELECT * FROM TB_PRODUCTO";
+            System.out.println(query);
+            ResultSet resultado = sql.executeQuery(query);
+            while (resultado.next()) {
+                datosDeProductos[0] = resultado.getString("COD_PRODUCTO");
+                datosDeProductos[1] = resultado.getString("NOMBRE");
+                datosDeProductos[2] = resultado.getString("TIPO_MEDICAMENTO");
+                datosDeProductos[3] = resultado.getString("FARMACEUTICA");
+                datosDeProductos[4] = resultado.getString("PRESENTACION");
+                datosDeProductos[5] = resultado.getString("STOCK");
+                datosDeProductos[6] = resultado.getString("PRECIO");
+                datosDeProductos[7] = resultado.getString("COMPOSICION");
+                modeloConDatos.addRow(datosDeProductos);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return modeloConDatos;
     }
 
 }
