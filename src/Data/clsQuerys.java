@@ -162,4 +162,23 @@ public class clsQuerys {
         return Resp;
     }
 
+    public Boolean fncDeleteProduct(String pCodigo) {
+        boolean Resp = false;
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String Query
+                    = "DELETE FROM TB_PRODUCTO "
+                    + "WHERE COD_PRODUCTO = " + pCodigo + ";";
+
+            sql.executeUpdate(Query);
+            System.out.println(Query);
+            Resp = true;
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return Resp;
+    }
+
 }

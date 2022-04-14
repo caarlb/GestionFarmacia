@@ -21,7 +21,7 @@ public class frmProducto extends javax.swing.JFrame {
     public frmProducto() {
         initComponents();
         condicionesIniciales();
-        mostrarProductosEnTabla();
+        // mostrarProductosEnTabla();
     }
 
     private void condicionesIniciales() {
@@ -31,6 +31,9 @@ public class frmProducto extends javax.swing.JFrame {
         btnCancelarNuevo.setVisible(false);
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
+        mostrarProductosEnTabla();
+        limpiarCajasDeTexto();
+        bloquearCajasDeTexto();
         System.gc();
     }
 
@@ -294,9 +297,9 @@ public class frmProducto extends javax.swing.JFrame {
             )) {
                 JOptionPane.showMessageDialog(null, "Datos guardados correctamente", "AVISO", JOptionPane.OK_OPTION);
             }
-            limpiarCajasDeTexto();
-            bloquearCajasDeTexto();
-            mostrarProductosEnTabla();
+//            limpiarCajasDeTexto();
+//            bloquearCajasDeTexto();
+//            mostrarProductosEnTabla();
             condicionesIniciales();
         } else {
             JOptionPane.showMessageDialog(null, "Complete todos los campos, Stock y precio son valores numericos", "AVISOS", JOptionPane.OK_OPTION);
@@ -326,7 +329,7 @@ public class frmProducto extends javax.swing.JFrame {
     }
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        condicionesIniciales();
+
         desbloquearCajasDeTexto();
         btnGuardarEditado.setVisible(true);
         btnCancelarEditado.setVisible(true);
@@ -335,11 +338,23 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if (ctCodigo.getText() != "") {
+            clsQuerys objDelete = new clsQuerys();
+            if (objDelete.fncDeleteProduct(ctCodigo.getText())) {
+                JOptionPane.showMessageDialog(null, "Producto Eliminado Correctamente", "AVISO", JOptionPane.OK_OPTION);
+
+//                limpiarCajasDeTexto();
+//            bloquearCajasDeTexto();
+//            mostrarProductosEnTabla();
+                condicionesIniciales();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error inesperado, no se pudo eliminar el producto", "AVISOS", JOptionPane.OK_OPTION);
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        condicionesIniciales();
+
         desbloquearCajasDeTexto();
         limpiarCajasDeTexto();
         btnGuardarNuevo.setVisible(true);
@@ -364,9 +379,9 @@ public class frmProducto extends javax.swing.JFrame {
             )) {
                 JOptionPane.showMessageDialog(null, "Datos Actualizados Correctamente", "AVISO", JOptionPane.OK_OPTION);
             }
-            limpiarCajasDeTexto();
-            bloquearCajasDeTexto();
-            mostrarProductosEnTabla();
+//            limpiarCajasDeTexto();
+//            bloquearCajasDeTexto();
+//            mostrarProductosEnTabla();
             condicionesIniciales();
         } else {
             JOptionPane.showMessageDialog(null, "Complete todos los campos, Stock y Precio son valores numericos", "AVISOS", JOptionPane.OK_OPTION);
@@ -379,26 +394,36 @@ public class frmProducto extends javax.swing.JFrame {
 
     private void btnCancelarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarNuevoActionPerformed
         condicionesIniciales();
-        limpiarCajasDeTexto();
-        bloquearCajasDeTexto();
+//        limpiarCajasDeTexto();
+//        bloquearCajasDeTexto();
     }//GEN-LAST:event_btnCancelarNuevoActionPerformed
 
     private void btnCancelarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditadoActionPerformed
         condicionesIniciales();
-        limpiarCajasDeTexto();
-        bloquearCajasDeTexto();
+//        limpiarCajasDeTexto();
+//        bloquearCajasDeTexto();
     }//GEN-LAST:event_btnCancelarEditadoActionPerformed
 
     private void tbProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosMouseClicked
         if (evt.getClickCount() == 2) {
-            condicionesIniciales();
+
+            btnGuardarNuevo.setVisible(false);
+            btnGuardarEditado.setVisible(false);
+            btnCancelarEditado.setVisible(false);
+            btnCancelarNuevo.setVisible(false);
+            //mostrarProductosEnTabla();
+            limpiarCajasDeTexto();
+            bloquearCajasDeTexto();
+            System.gc();
+
+           
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(true);
-            bloquearCajasDeTexto();
+//            bloquearCajasDeTexto();
 
             DefaultTableModel modeloConDatos = (DefaultTableModel) tbProductos.getModel();
-
-            String indiceDatoSeleccionado = (String) modeloConDatos.getValueAt(tbProductos.getSelectedRow(), 0);
+            System.out.println("llega aca con fila: "+tbProductos.getSelectedRow() );
+            String indiceDatoSeleccionado = (String) modeloConDatos.getValueAt(tbProductos.getSelectedRow(),0);
             System.out.println("el campos es: " + indiceDatoSeleccionado);
 
             clsQuerys objOneProducto = new clsQuerys();
