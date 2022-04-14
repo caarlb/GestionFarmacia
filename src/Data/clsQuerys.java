@@ -121,7 +121,8 @@ public class clsQuerys {
                 detallesDeProducto[6] = resultado.getString("PRECIO");
                 detallesDeProducto[7] = resultado.getString("COMPOSICION");
             }
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
         }
 
         return detallesDeProducto;
@@ -179,6 +180,27 @@ public class clsQuerys {
         }
 
         return Resp;
+    }
+
+    public String[] fcnDetalleCliente(String nit) {
+
+        String[] detallesCliente = new String[3];
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String query = "SELECT * FROM TB_CLIENTE WHERE NIT = '" + nit + "';";
+            System.out.println(query);
+            ResultSet resultado = sql.executeQuery(query);
+            if(resultado != null && resultado.next()){
+                detallesCliente[0]= resultado.getString("NIT");
+                detallesCliente[1]= resultado.getString("NOMBRE");
+                detallesCliente[2]= resultado.getString("DIRECCION");
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return detallesCliente;
     }
 
 }
