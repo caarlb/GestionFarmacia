@@ -18,8 +18,7 @@ public class frmProducto extends javax.swing.JFrame {
     private void condicionesIniciales() {
         btnGuardarNuevo.setVisible(false);
         btnGuardarEditado.setVisible(false);
-        btnCancelarEditado.setVisible(false);
-        btnCancelarNuevo.setVisible(false);
+        btnCancelar.setVisible(false);
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
         mostrarProductosEnTabla();
@@ -58,8 +57,7 @@ public class frmProducto extends javax.swing.JFrame {
         jScrollPanel = new javax.swing.JScrollPane();
         tbProductos = new javax.swing.JTable();
         btnGuardarEditado = new javax.swing.JButton();
-        btnCancelarNuevo = new javax.swing.JButton();
-        btnCancelarEditado = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         ctCodigo = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
@@ -232,21 +230,13 @@ public class frmProducto extends javax.swing.JFrame {
         });
         getContentPane().add(btnGuardarEditado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 141, -1));
 
-        btnCancelarNuevo.setText("CANCELAR");
-        btnCancelarNuevo.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarNuevoActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancelarNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 141, -1));
-
-        btnCancelarEditado.setText("CANCELAR");
-        btnCancelarEditado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarEditadoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCancelarEditado, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 141, -1));
+        getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 141, -1));
 
         ctCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(ctCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 90, 20));
@@ -318,7 +308,7 @@ public class frmProducto extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         desbloquearCajasDeTexto();
         btnGuardarEditado.setVisible(true);
-        btnCancelarEditado.setVisible(true);
+        btnCancelar.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -337,7 +327,7 @@ public class frmProducto extends javax.swing.JFrame {
         desbloquearCajasDeTexto();
         limpiarCajasDeTexto();
         btnGuardarNuevo.setVisible(true);
-        btnCancelarNuevo.setVisible(true);
+        btnCancelar.setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEditadoActionPerformed
@@ -366,13 +356,9 @@ public class frmProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ctPrecioActionPerformed
 
-    private void btnCancelarNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarNuevoActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         condicionesIniciales();
-    }//GEN-LAST:event_btnCancelarNuevoActionPerformed
-
-    private void btnCancelarEditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarEditadoActionPerformed
-        condicionesIniciales();
-    }//GEN-LAST:event_btnCancelarEditadoActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tbProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductosMouseClicked
         if (evt.getClickCount() == 2) {
@@ -492,8 +478,7 @@ public class frmProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelarEditado;
-    private javax.swing.JButton btnCancelarNuevo;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardarEditado;
