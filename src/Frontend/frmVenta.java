@@ -6,6 +6,7 @@ package Frontend;
 
 import Data.clsQuerys;
 import java.util.Arrays;
+import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JOptionPane;
 
 /**
@@ -140,7 +141,20 @@ public class frmVenta extends javax.swing.JFrame {
                 lbNombreCliente.setText(detalleCliente[1]);
                 lbDireccion.setText(detalleCliente[2]);
             } else {
-                JOptionPane.showMessageDialog(null, "Ese nit no existe", "AVISO", JOptionPane.OK_OPTION);
+                int option;
+                option = JOptionPane.showConfirmDialog(null, "Este nit no existe, desea crearlo?", "no existe nit", ConfirmationCallback.YES_NO_OPTION);
+                switch (option) {
+                    case 0:
+                        frmNit nuevoNit = new frmNit(nit);
+                        this.setVisible(false);
+                        nuevoNit.setVisible(true);
+                        break;
+                    case 1:
+                        ctBuscarNIT.setText("");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }//GEN-LAST:event_btnBuscarNITActionPerformed

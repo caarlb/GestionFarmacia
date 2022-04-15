@@ -191,16 +191,39 @@ public class clsQuerys {
             String query = "SELECT * FROM TB_CLIENTE WHERE NIT = '" + nit + "';";
             System.out.println(query);
             ResultSet resultado = sql.executeQuery(query);
-            if(resultado != null && resultado.next()){
-                detallesCliente[0]= resultado.getString("NIT");
-                detallesCliente[1]= resultado.getString("NOMBRE");
-                detallesCliente[2]= resultado.getString("DIRECCION");
+            if (resultado != null && resultado.next()) {
+                detallesCliente[0] = resultado.getString("NIT");
+                detallesCliente[1] = resultado.getString("NOMBRE");
+                detallesCliente[2] = resultado.getString("DIRECCION");
             }
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.toString());
         }
 
         return detallesCliente;
+    }
+
+    public boolean fncInsertNit(
+            String pNit,
+            String pNombre,
+            String pDireccion) {
+
+        boolean resp = false;
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String Query = "INSERT INTO TB_CLIENTE (NIT, NOMBRE, DIRECCION) "
+                    + "VALUES ('"+pNit+"','"+pNombre+"','"+pDireccion+"');";
+
+            sql.executeUpdate(Query);
+
+            System.out.println(Query);
+            resp = true;
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return resp;
     }
 
 }
