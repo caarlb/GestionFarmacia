@@ -71,6 +71,11 @@ public class frmNit extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,12 +151,21 @@ public class frmNit extends javax.swing.JFrame {
             clsQuerys objInsert = new clsQuerys();
             if (objInsert.fncInsertNit(nit, nombre, direccion)) {
                 JOptionPane.showMessageDialog(null, "Datos guardados correctamente", "AVISO", JOptionPane.OK_OPTION);
+                frmVenta objVenta = new frmVenta(nit, nombre, direccion);
+                this.setVisible(false);
+                objVenta.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Erro insperado, no fue posible guardar la informacion", "AVISO", JOptionPane.OK_OPTION);
             }
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        frmVenta objVenta = new frmVenta();
+        this.setVisible(false);
+        objVenta.setVisible(true);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments

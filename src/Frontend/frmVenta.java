@@ -21,6 +21,13 @@ public class frmVenta extends javax.swing.JFrame {
     public frmVenta() {
         initComponents();
     }
+    
+    public frmVenta(String nit, String nombre, String direccion){
+        initComponents();
+        this.lbNIT.setText(nit);
+        this.lbNombreCliente.setText(nombre);
+        this.lbDireccion.setText(direccion);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
