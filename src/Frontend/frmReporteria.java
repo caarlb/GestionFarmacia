@@ -4,8 +4,13 @@
  */
 package Frontend;
 
+import Data.clsQuerys;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -69,8 +74,43 @@ public class frmReporteria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteProductosActionPerformed
-        System.out.println("" + obtenerRuta());
+        String ruta = obtenerRuta();
+        String nombreArchivo = "ReporteProductos";
+        String contenido = generarContenidoArchivoProductos();
+        if (crearArchivo(ruta, contenido, nombreArchivo)) {
+            JOptionPane.showMessageDialog(null, "archivo creado exitosamente", "AVISO", JOptionPane.OK_OPTION);
+        } else {
+            JOptionPane.showMessageDialog(null, "no se creo el archivo", "AVISO", JOptionPane.OK_OPTION);
+        }
+
+
     }//GEN-LAST:event_btnReporteProductosActionPerformed
+
+    private String generarContenidoArchivoProductos() {
+
+        clsQuerys objProductos = new clsQuerys();
+        DefaultTableModel modeloConDatos;
+        modeloConDatos = objProductos.fcnShowProductsList();
+        String titulos = ""
+                + modeloConDatos.getColumnName(0) + " - "
+                + modeloConDatos.getColumnName(1) + " - "
+                + modeloConDatos.getColumnName(4) + " - "
+                + modeloConDatos.getColumnName(5) + " - "
+                + modeloConDatos.getColumnName(6) + "\n";
+        
+        int totalFilas = modeloConDatos.getRowCount();
+        String valores = "";
+        
+        for (int i=0; i<totalFilas; i++){
+            valores += modeloConDatos.getValueAt(i, 0) + " - ";
+            valores += modeloConDatos.getValueAt(i, 1) + " - ";
+            valores += modeloConDatos.getValueAt(i, 4) + " - ";
+            valores += modeloConDatos.getValueAt(i, 5) + " - ";
+            valores += modeloConDatos.getValueAt(i, 6) + "\n";
+        } 
+        
+        return "" + titulos + valores;
+    }
 
     private String obtenerRuta() {
         try {
@@ -84,6 +124,18 @@ public class frmReporteria extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         return "";
+    }
+
+    private boolean crearArchivo(String ruta, String contenido, String fileName) {
+        try {
+            FileWriter f = new FileWriter(ruta + "\\" + fileName + ".txt");
+            f.write(contenido);
+            f.close();
+            return true;
+        } catch (IOException e) {
+            System.out.println("Hubo un erro al crear el txt " + e);
+        }
+        return false;
     }
 
     /**
