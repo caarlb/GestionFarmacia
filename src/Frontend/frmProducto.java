@@ -136,7 +136,7 @@ public class frmProducto extends javax.swing.JFrame {
         ctComposicion.setRows(5);
         jScrollPane1.setViewportView(ctComposicion);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 250, 94));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 250, 94));
 
         jLabel8.setText("STOCK:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 203, -1, -1));

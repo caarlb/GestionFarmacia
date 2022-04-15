@@ -4,6 +4,9 @@
  */
 package Frontend;
 
+import java.io.File;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author caarlb
@@ -27,30 +30,61 @@ public class frmReporteria extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        btnReporteProductos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Reporteria");
+
+        btnReporteProductos.setText("Generar Reporte Inventario de Productos");
+        btnReporteProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteProductosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(179, 179, 179)
-                .addComponent(jLabel1)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReporteProductos)
+                    .addComponent(jLabel1))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnReporteProductos)
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReporteProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteProductosActionPerformed
+        System.out.println("" + obtenerRuta());
+    }//GEN-LAST:event_btnReporteProductosActionPerformed
+
+    private String obtenerRuta() {
+        try {
+            JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int seleccion = fc.showOpenDialog(null);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File fichero = fc.getSelectedFile();
+                return fichero.getAbsolutePath();
+            }
+        } catch (Exception e) {
+        }
+        return "";
+    }
 
     /**
      * @param args the command line arguments
@@ -81,6 +115,7 @@ public class frmReporteria extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new frmReporteria().setVisible(true);
             }
@@ -88,6 +123,7 @@ public class frmReporteria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReporteProductos;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
