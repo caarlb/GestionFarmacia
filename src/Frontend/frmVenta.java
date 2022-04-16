@@ -94,7 +94,7 @@ public class frmVenta extends javax.swing.JFrame {
         tbProductos = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        lbtotal = new javax.swing.JLabel();
+        lbTotal = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         lbCantidadProductos = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -285,9 +285,9 @@ public class frmVenta extends javax.swing.JFrame {
         jLabel19.setText("Total Q. ");
         getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 580, 60, -1));
 
-        lbtotal.setText("     ");
-        lbtotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        getContentPane().add(lbtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 580, 150, -1));
+        lbTotal.setText("     ");
+        lbTotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(lbTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 580, 150, -1));
 
         jLabel21.setText("Cantidad Productos: ");
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 580, -1, -1));
@@ -380,6 +380,22 @@ public class frmVenta extends javax.swing.JFrame {
         tbProductos.setModel(modeloConDatosDeTabla);
     }
 
+    private void renovarTotales() {
+        int cantidadTotalProductos = 0;
+        double totalParaCobrar = 0;
+
+        int totalFilas = modeloConDatosDeTabla.getRowCount();
+
+        for (int i = 0; i < totalFilas; i++) {
+            int datoCantidad = Integer.parseInt((String) modeloConDatosDeTabla.getValueAt(i, 3));
+            double datoCobro = Double.parseDouble((String) modeloConDatosDeTabla.getValueAt(i, 5));
+            cantidadTotalProductos += datoCantidad;
+            totalParaCobrar += datoCobro;
+        }
+        lbCantidadProductos.setText(cantidadTotalProductos + "");
+        lbTotal.setText(String.format("%.2f", totalParaCobrar));
+    }
+
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
@@ -387,31 +403,67 @@ public class frmVenta extends javax.swing.JFrame {
         if (!lbNIT.getText().equals("")) {
             if (!lbCodigoProducto.getText().equals("")) {
                 int codigo = Integer.parseInt(lbCodigoProducto.getText());
-                System.out.println("no esta vacio");
+                clsQuerys objProducto = new clsQuerys();
+                String[] resultadosQuery = objProducto.fncDetalleProductoParaFactura(codigo);
+                String[] datosParaInsertar = new String[7];
+                int existencias = Integer.parseInt(resultadosQuery[1]);
+                int agregar = (int) spCantidadParaAgregar.getValue();
+                String nombre = resultadosQuery[0];
+                double precio = Double.parseDouble(resultadosQuery[2]);
+
                 if (existeCodigoEnModelo(codigo) < 0) {
-                    clsQuerys objProducto = new clsQuerys();
-                    String[] resultadosQuery = objProducto.fncDetalleProductoParaFactura(codigo);
-                    String[] datosParaInsertar = new String[7];
-                    //Correlativo
-                    datosParaInsertar[0] = Integer.toString(modeloConDatosDeTabla.getRowCount() + 1);
-                    //codigo 
-                    datosParaInsertar[1] = Integer.toString(codigo);
-                    //nombre
-                    datosParaInsertar[2] = resultadosQuery[0];
-                    //Cantidad
-                    datosParaInsertar[3] = "" + spCantidadParaAgregar.getValue();
-                    //precio
-                    datosParaInsertar[4] = resultadosQuery[2];
-                    //subtotal
-                    datosParaInsertar[5] = "subTotal";
-                    //No. de Existencias
-                    datosParaInsertar[6] = resultadosQuery[1];
-                    modeloConDatosDeTabla.addRow(datosParaInsertar);
-                    fncPintarTabla();
+                    //Si no existe el producto en la lista de la factura
+
+                    //verifica si hay suficientes existencias para vender 
+                    if (agregar <= existencias) {
+                        String correlativo = Integer.toString(modeloConDatosDeTabla.getRowCount() + 1);
+                        Double subtotal = precio * agregar;
+
+                        //Correlativo
+                        datosParaInsertar[0] = correlativo;
+                        //codigo 
+                        datosParaInsertar[1] = Integer.toString(codigo);
+                        //nombre
+                        datosParaInsertar[2] = nombre;
+                        //Cantidad
+                        datosParaInsertar[3] = agregar + "";
+                        //precio
+                        datosParaInsertar[4] = precio + "";
+                        //subtotal
+                        datosParaInsertar[5] = String.format("%.2f", subtotal);
+                        //No. de Existencias
+                        datosParaInsertar[6] = existencias + "";
+                        modeloConDatosDeTabla.addRow(datosParaInsertar);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No hay suficientes existencias, unicamente hay " + existencias, "AVISO", JOptionPane.OK_OPTION);
+                    }
+                } else {
+                    //Si el producto ya existe 
+                    int indice = existeCodigoEnModelo(codigo);
+                    System.out.println("indice " + indice);
+                    String cantidadPreviaTexto = modeloConDatosDeTabla.getValueAt(indice, 3) + "";
+                    int cantidadPrevia = Integer.parseInt(cantidadPreviaTexto);
+                    System.out.println("cantidadprevia " + cantidadPrevia);
+                    int cantidadNueva = agregar + cantidadPrevia;
+                    System.out.println("cantidad nueva " + cantidadNueva);
+
+                    if (cantidadNueva <= existencias) {
+                        System.out.println("si se agrega ");
+                        Double nuevoSubtotal = precio * cantidadNueva;
+                        modeloConDatosDeTabla.setValueAt(cantidadNueva + "", indice, 3);
+                        modeloConDatosDeTabla.setValueAt(String.format("%.2f", nuevoSubtotal), indice, 5);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No hay suficientes existencias, unicamente hay " + existencias, "AVISO", JOptionPane.OK_OPTION);
+                    }
+
                 }
+                fncPintarTabla();
+                renovarTotales();
             }
         } else {
-             JOptionPane.showMessageDialog(null, "Debe tener un nit seleccionado", "AVISO", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Debe tener un nit seleccionado", "AVISO", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -513,7 +565,7 @@ public class frmVenta extends javax.swing.JFrame {
     private javax.swing.JLabel lbPresentacion;
     private javax.swing.JLabel lbStock;
     private javax.swing.JLabel lbTipoProducto;
-    private javax.swing.JLabel lbtotal;
+    private javax.swing.JLabel lbTotal;
     private javax.swing.JSpinner spCantidadParaAgregar;
     private javax.swing.JTable tbProductos;
     // End of variables declaration//GEN-END:variables
