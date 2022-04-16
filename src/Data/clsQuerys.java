@@ -131,7 +131,7 @@ public class clsQuerys {
             String query = "SELECT MAX(FACTURA) FROM TB_FACTURA;";
             System.out.println("trantoi este query: " + query);
             ResultSet resultado = sql.executeQuery(query);
-            while(resultado.next()){
+            while (resultado.next()) {
                 idFactura = resultado.getString(1);
                 System.out.println("el dato de adentro es " + idFactura);
             }
@@ -177,6 +177,38 @@ public class clsQuerys {
             System.out.println("ERROR: " + ex.toString());
         }
         return modeloConDatos;
+    }
+
+    public DefaultTableModel fncShowReporteFactura(String fInicial, String fFinal) {
+        String[] tituloColumnas = {
+            "No. Factura",
+            "Nit",
+            "Productos Vendidos",
+            "Monto de Factura"};
+        String[] detallesFactura = new String[4];
+        DefaultTableModel mFacturaDetalles = new DefaultTableModel(null, tituloColumnas);
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String query = "SELECT FACTURA, NIT, CANTIDAD_PRODUCTOS, MONTO_TOTAL FROM TB_FACTURA\n"
+                    + "WHERE FECHA BETWEEN "
+                    + "'" + fInicial + "' AND "
+                    + "'" + fFinal + "';";
+            System.out.println(query);
+            ResultSet resultado = sql.executeQuery(query);
+            while (resultado.next()) {
+                detallesFactura[0] = resultado.getString("FACTURA");
+                detallesFactura[1] = resultado.getString("NIT");
+                detallesFactura[2] = resultado.getString("CANTIDAD_PRODUCTOS");
+                detallesFactura[3] = resultado.getString("MONTO_TOTAL");
+
+                mFacturaDetalles.addRow(detallesFactura);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return mFacturaDetalles;
     }
 
     public String[] fncDetalleProductoParaFactura(int pCodigo) {

@@ -8,8 +8,14 @@ import Data.clsQuerys;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,6 +42,13 @@ public class frmReporteria extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnReporteProductos = new javax.swing.JButton();
+        btnReporteProductos1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        spFechaInicial = new javax.swing.JSpinner();
+        spFechaFinal = new javax.swing.JSpinner();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +62,23 @@ public class frmReporteria extends javax.swing.JFrame {
             }
         });
 
+        btnReporteProductos1.setText("Generar Reporte de facturas");
+        btnReporteProductos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteProductos1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Desde");
+
+        jLabel3.setText("Hasta");
+
+        jLabel4.setText("D/M/A  H:S");
+
+        spFechaInicial.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1609531380000L), null, null, java.util.Calendar.DAY_OF_MONTH));
+
+        spFechaFinal.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1672509540000L), null, null, java.util.Calendar.DAY_OF_MONTH));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -58,16 +88,55 @@ public class frmReporteria extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnReporteProductos)
                     .addComponent(jLabel1))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(spFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addComponent(btnReporteProductos1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(jLabel4)))
+                .addGap(32, 32, 32))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(26, 26, 26)
                 .addComponent(btnReporteProductos)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(spFechaInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReporteProductos1)
+                        .addGap(8, 8, 8)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(spFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
@@ -86,6 +155,68 @@ public class frmReporteria extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReporteProductosActionPerformed
 
+    private void btnReporteProductos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteProductos1ActionPerformed
+
+        Date fInicial = (Date) spFechaInicial.getValue();
+        Date fFinal = (Date) spFechaFinal.getValue();
+        if (fInicial.before(fFinal)) {
+
+            String ruta = obtenerRuta();
+            String nombreArchivo = "ReporteFacturas";
+            String contenido = generarContenidoArchivoFactura();
+            if (crearArchivo(ruta, contenido, nombreArchivo)) {
+                JOptionPane.showMessageDialog(null, "archivo creado exitosamente", "AVISO", JOptionPane.OK_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(null, "no se creo el archivo", "AVISO", JOptionPane.OK_OPTION);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "La fecha inicial debe ser anterior a la fecha final", "AVISO", JOptionPane.OK_OPTION);
+
+        }
+
+
+    }//GEN-LAST:event_btnReporteProductos1ActionPerformed
+
+    private String generarContenidoArchivoFactura() {
+
+        String fechaInicial, fechaFinal;
+
+        //obtener valores de spinners
+        fechaInicial = "" + spFechaInicial.getValue();
+        fechaFinal = "" + spFechaFinal.getValue();
+
+        //usando substring para remover el ia el tipo de horario
+        fechaInicial = fechaInicial.substring(4, 19) + fechaInicial.substring(23, 28);
+        fechaFinal = fechaFinal.substring(4, 19) + fechaFinal.substring(23, 28);
+//        System.out.println("fecha inicio: " + fechaInicial);
+//        System.out.println("fecha final: " + fechaFinal);
+
+        clsQuerys objFacturas = new clsQuerys();
+        DefaultTableModel modeloConDatos;
+        modeloConDatos = objFacturas.fncShowReporteFactura(fechaInicial, fechaFinal);
+
+        String rangosDeBusqueda = "Busqueda desde: " + fechaInicial + " hasta " + fechaFinal + "\n";
+        String titulos = ""
+                + modeloConDatos.getColumnName(0) + " - "
+                + modeloConDatos.getColumnName(1) + " - "
+                + modeloConDatos.getColumnName(2) + " - "
+                + modeloConDatos.getColumnName(3) + "\n";
+
+        int totalFilas = modeloConDatos.getRowCount();
+        String valores = "";
+
+        for (int i = 0; i < totalFilas; i++) {
+            valores += modeloConDatos.getValueAt(i, 0) + " - ";
+            valores += modeloConDatos.getValueAt(i, 1) + " - ";
+            valores += modeloConDatos.getValueAt(i, 2) + " - ";
+            valores += modeloConDatos.getValueAt(i, 3) + "\n";
+        }
+
+        return rangosDeBusqueda + titulos + valores;
+
+    }
+
     private String generarContenidoArchivoProductos() {
 
         clsQuerys objProductos = new clsQuerys();
@@ -97,18 +228,18 @@ public class frmReporteria extends javax.swing.JFrame {
                 + modeloConDatos.getColumnName(4) + " - "
                 + modeloConDatos.getColumnName(5) + " - "
                 + modeloConDatos.getColumnName(6) + "\n";
-        
+
         int totalFilas = modeloConDatos.getRowCount();
         String valores = "";
-        
-        for (int i=0; i<totalFilas; i++){
+
+        for (int i = 0; i < totalFilas; i++) {
             valores += modeloConDatos.getValueAt(i, 0) + " - ";
             valores += modeloConDatos.getValueAt(i, 1) + " - ";
             valores += modeloConDatos.getValueAt(i, 4) + " - ";
             valores += modeloConDatos.getValueAt(i, 5) + " - ";
             valores += modeloConDatos.getValueAt(i, 6) + "\n";
-        } 
-        
+        }
+
         return "" + titulos + valores;
     }
 
@@ -176,6 +307,13 @@ public class frmReporteria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReporteProductos;
+    private javax.swing.JButton btnReporteProductos1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSpinner spFechaFinal;
+    private javax.swing.JSpinner spFechaInicial;
     // End of variables declaration//GEN-END:variables
 }
