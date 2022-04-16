@@ -98,7 +98,8 @@ public class frmVenta extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         lbCantidadProductos = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbEstatus = new javax.swing.JComboBox<>();
+        btnFacturar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -299,8 +300,17 @@ public class frmVenta extends javax.swing.JFrame {
         jLabel23.setText("Estatus");
         getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Pagada" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, -1, -1));
+        cbEstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Pagada" }));
+        getContentPane().add(cbEstatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, -1, -1));
+
+        btnFacturar.setText("Generar Factura");
+        btnFacturar.setEnabled(false);
+        btnFacturar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 600, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -461,16 +471,47 @@ public class frmVenta extends javax.swing.JFrame {
                 }
                 fncPintarTabla();
                 renovarTotales();
+                btnFacturar.setEnabled(true);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe tener un nit seleccionado", "AVISO", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnFacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturarActionPerformed
+
+        clsQuerys objInsert = new clsQuerys();
+        String pNit = lbNIT.getText();
+        String pCantidadProductos = lbCantidadProductos.getText();
+        String pTotal = lbTotal.getText();
+        String pEstatus = cbEstatus.getSelectedIndex()+ "";
+        if (objInsert.fncInsertFactura(pNit, pCantidadProductos, pTotal, pEstatus)) {
+            clsQuerys objFactura = new clsQuerys();
+            String idFactura = objFactura.fncShowFacturaId();
+            System.out.println("el string de id de factura es " + idFactura);
+
+            int totalFilas = modeloConDatosDeTabla.getRowCount();
+
+            for (int i = 0; i < totalFilas; i++) {
+                int pFactura = Integer.parseInt(idFactura);
+                int pCorrelativo = Integer.parseInt((String) modeloConDatosDeTabla.getValueAt(i, 0));
+                int pCodigoProducto = Integer.parseInt((String) modeloConDatosDeTabla.getValueAt(i, 1));
+                int pCantidad = Integer.parseInt((String) modeloConDatosDeTabla.getValueAt(i, 3));
+                double pPrecio = Double.parseDouble((String) modeloConDatosDeTabla.getValueAt(i, 4));
+                
+                clsQuerys objDetallesFactura = new clsQuerys();
+                objDetallesFactura.fncInsertDetalleFactura(pFactura, pCorrelativo, pCodigoProducto, pCantidad, pPrecio);
+            }
+
+        }
+
+
+    }//GEN-LAST:event_btnFacturarActionPerformed
+
     //retorna -1 si aun no existe el codigo en el modelo, si ya existe devuelve su ubicacion
     private int existeCodigoEnModelo(int pCodigo) {
         int totalFilas = modeloConDatosDeTabla.getRowCount();
-        String valores = "";
+        //String valores = "";
 
         for (int i = 0; i < totalFilas; i++) {
             if (pCodigo == Integer.parseInt((String) modeloConDatosDeTabla.getValueAt(i, 1))) {
@@ -519,10 +560,11 @@ public class frmVenta extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarNIT;
     private javax.swing.JButton btnBuscarProducto;
+    private javax.swing.JButton btnFacturar;
+    private javax.swing.JComboBox<String> cbEstatus;
     private javax.swing.JComboBox<String> cbOpcionDeBusqueda;
     private javax.swing.JTextField ctBuscarNIT;
     private javax.swing.JTextField ctBuscarProducto;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

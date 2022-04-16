@@ -67,8 +67,85 @@ public class clsQuerys {
         return Resp;
     }
 
+    public Boolean fncInsertFactura(
+            String pNit,
+            String pCantidadProductos,
+            String pTotal,
+            String pEstatus) {
+        boolean resp = false;
+        String pFecha = "GETDATE()";
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String Query = "INSERT INTO TB_FACTURA \n"
+                    + "(NIT, FECHA, CANTIDAD_PRODUCTOS, MONTO_TOTAL, ESTATUS)\n"
+                    + "VALUES ('"
+                    + pNit + "', "
+                    + pFecha + ", '"
+                    + pCantidadProductos + "', '"
+                    + pTotal + "', '"
+                    + pEstatus + "');";
+
+            sql.executeUpdate(Query);
+
+            System.out.println(Query);
+            resp = true;
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+        return resp;
+    }
+
+    public void fncInsertDetalleFactura(
+            int pFactura,
+            int pCorrelativo,
+            int pCodigoProducto,
+            int pCantidad,
+            double pPrecio) {
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String Query = "INSERT INTO TB_DETALLE_FACTURA\n"
+                    + "(FACTURA, CORRELATIVO, COD_PRODUCTO, CANTIDAD, PRECIO)\n"
+                    + "VALUES( "
+                    + pFactura + " , "
+                    + pCorrelativo + ", "
+                    + pCodigoProducto + ", "
+                    + pCantidad + ", "
+                    + pPrecio + ");";
+
+            sql.executeUpdate(Query);
+
+            System.out.println(Query);
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+
+        }
+    }
+
+    public String fncShowFacturaId() {
+        String idFactura = "";
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String query = "SELECT MAX(FACTURA) FROM TB_FACTURA;";
+            System.out.println("trantoi este query: " + query);
+            ResultSet resultado = sql.executeQuery(query);
+            while(resultado.next()){
+                idFactura = resultado.getString(1);
+                System.out.println("el dato de adentro es " + idFactura);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+
+        return idFactura;
+    }
+
     public DefaultTableModel fcnShowProductsList() {
-        String[] titulosColumnas = {"Codigo",
+        String[] titulosColumnas = {
+            "Codigo",
             "Nombre",
             "Tipo",
             "Farmaceutica",
