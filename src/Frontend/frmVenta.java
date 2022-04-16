@@ -8,6 +8,7 @@ import Data.clsQuerys;
 import java.util.Arrays;
 import javax.security.auth.callback.ConfirmationCallback;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,14 +16,22 @@ import javax.swing.JOptionPane;
  */
 public class frmVenta extends javax.swing.JFrame {
 
+    private String[] titulosColumnas;
+
+    private DefaultTableModel modeloConDatosDeTabla;
+
     /**
      * Creates new form frmVenta
      */
     public frmVenta() {
+        this.titulosColumnas = new String[]{"Correlativo", "Codigo", "Nombre", "Cantidad", "Precio", "Subtotal", "No. de Existencias"};
+        this.modeloConDatosDeTabla = new DefaultTableModel(null, titulosColumnas);
         initComponents();
     }
 
     public frmVenta(String nit, String nombre, String direccion) {
+        this.titulosColumnas = new String[]{"Correlativo", "Codigo", "Nombre", "Cantidad", "Precio", "Subtotal", "No. de Existencias"};
+        this.modeloConDatosDeTabla = new DefaultTableModel(null, titulosColumnas);
         initComponents();
         this.lbNIT.setText(nit);
         this.lbNombreCliente.setText(nombre);
@@ -76,17 +85,31 @@ public class frmVenta extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         spCantidadParaAgregar = new javax.swing.JSpinner();
         btnAgregar = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel16 = new javax.swing.JLabel();
+        lbFactura = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbProductos = new javax.swing.JTable();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        lbtotal = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        lbCantidadProductos = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("registro de venta");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(262, 0, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel2.setText("Ingrese NIT: ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 59, -1, -1));
-        getContentPane().add(ctBuscarNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 56, 189, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, 20));
+        getContentPane().add(ctBuscarNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 189, -1));
 
         btnBuscarNIT.setText("->");
         btnBuscarNIT.addActionListener(new java.awt.event.ActionListener() {
@@ -94,31 +117,31 @@ public class frmVenta extends javax.swing.JFrame {
                 btnBuscarNITActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscarNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 55, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 87, 732, 10));
+        getContentPane().add(btnBuscarNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 90, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 732, 10));
 
         jLabel3.setText("NIT:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 104, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         lbNIT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(lbNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 104, 138, 27));
+        getContentPane().add(lbNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 138, 27));
 
         lbNombreCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(lbNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 104, 484, 27));
+        getContentPane().add(lbNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 484, 27));
 
         jLabel4.setText("Nombre:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 104, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, -1));
 
         jLabel5.setText("Direccion");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 149, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         lbDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(lbDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 149, 689, 27));
-        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 183, 757, 10));
+        getContentPane().add(lbDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 689, 27));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 757, 10));
 
         jLabel6.setText("Busqueda:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 204, -1, -1));
-        getContentPane().add(ctBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 201, 213, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        getContentPane().add(ctBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 213, -1));
 
         cbOpcionDeBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Por Codigo", "Por Nombre" }));
         cbOpcionDeBusqueda.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +149,7 @@ public class frmVenta extends javax.swing.JFrame {
                 cbOpcionDeBusquedaActionPerformed(evt);
             }
         });
-        getContentPane().add(cbOpcionDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 201, 121, -1));
+        getContentPane().add(cbOpcionDeBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 121, -1));
 
         btnBuscarProducto.setText("Buscar");
         btnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +157,7 @@ public class frmVenta extends javax.swing.JFrame {
                 btnBuscarProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 200, 126, -1));
+        getContentPane().add(btnBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 126, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -202,7 +225,9 @@ public class frmVenta extends javax.swing.JFrame {
 
         jLabel15.setText("Cantidad: ");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-        jPanel3.add(spCantidadParaAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        spCantidadParaAgregar.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel3.add(spCantidadParaAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 60, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -212,9 +237,70 @@ public class frmVenta extends javax.swing.JFrame {
         });
         jPanel3.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 120, 100));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 140, 100));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 243, 780, 130));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 780, 130));
+        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
+        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 780, 10));
+
+        jLabel16.setText("Factura:");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+
+        lbFactura.setText("  ");
+        lbFactura.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(lbFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 140, 20));
+
+        tbProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbProductos.setEnabled(false);
+        jScrollPane1.setViewportView(tbProductos);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 750, 190));
+
+        jLabel18.setText("Fecha:");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
+
+        jLabel19.setText("Total Q. ");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 580, 60, -1));
+
+        lbtotal.setText("     ");
+        lbtotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(lbtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 580, 150, -1));
+
+        jLabel21.setText("Cantidad Productos: ");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 580, -1, -1));
+
+        lbCantidadProductos.setText("       ");
+        lbCantidadProductos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        getContentPane().add(lbCantidadProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 580, 90, -1));
+
+        jLabel23.setText("Estatus");
+        getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Pagada" }));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -289,9 +375,58 @@ public class frmVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
+    private void fncPintarTabla() {
+
+        tbProductos.setModel(modeloConDatosDeTabla);
+    }
+
+
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+
+        if (!lbNIT.getText().equals("")) {
+            if (!lbCodigoProducto.getText().equals("")) {
+                int codigo = Integer.parseInt(lbCodigoProducto.getText());
+                System.out.println("no esta vacio");
+                if (existeCodigoEnModelo(codigo) < 0) {
+                    clsQuerys objProducto = new clsQuerys();
+                    String[] resultadosQuery = objProducto.fncDetalleProductoParaFactura(codigo);
+                    String[] datosParaInsertar = new String[7];
+                    //Correlativo
+                    datosParaInsertar[0] = Integer.toString(modeloConDatosDeTabla.getRowCount() + 1);
+                    //codigo 
+                    datosParaInsertar[1] = Integer.toString(codigo);
+                    //nombre
+                    datosParaInsertar[2] = resultadosQuery[0];
+                    //Cantidad
+                    datosParaInsertar[3] = "" + spCantidadParaAgregar.getValue();
+                    //precio
+                    datosParaInsertar[4] = resultadosQuery[2];
+                    //subtotal
+                    datosParaInsertar[5] = "subTotal";
+                    //No. de Existencias
+                    datosParaInsertar[6] = resultadosQuery[1];
+                    modeloConDatosDeTabla.addRow(datosParaInsertar);
+                    fncPintarTabla();
+                }
+            }
+        } else {
+             JOptionPane.showMessageDialog(null, "Debe tener un nit seleccionado", "AVISO", JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    //retorna -1 si aun no existe el codigo en el modelo, si ya existe devuelve su ubicacion
+    private int existeCodigoEnModelo(int pCodigo) {
+        int totalFilas = modeloConDatosDeTabla.getRowCount();
+        String valores = "";
+
+        for (int i = 0; i < totalFilas; i++) {
+            if (pCodigo == Integer.parseInt((String) modeloConDatosDeTabla.getValueAt(i, 1))) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     /**
      * @param args the command line arguments
@@ -335,6 +470,7 @@ public class frmVenta extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbOpcionDeBusqueda;
     private javax.swing.JTextField ctBuscarNIT;
     private javax.swing.JTextField ctBuscarProducto;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -342,7 +478,12 @@ public class frmVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -353,11 +494,17 @@ public class frmVenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel lbCantidadProductos;
     private javax.swing.JLabel lbCodigoProducto;
     private javax.swing.JLabel lbComposicion;
     private javax.swing.JLabel lbDireccion;
+    private javax.swing.JLabel lbFactura;
     private javax.swing.JLabel lbFarmaceutica;
     private javax.swing.JLabel lbNIT;
     private javax.swing.JLabel lbNombreCliente;
@@ -366,6 +513,8 @@ public class frmVenta extends javax.swing.JFrame {
     private javax.swing.JLabel lbPresentacion;
     private javax.swing.JLabel lbStock;
     private javax.swing.JLabel lbTipoProducto;
+    private javax.swing.JLabel lbtotal;
     private javax.swing.JSpinner spCantidadParaAgregar;
+    private javax.swing.JTable tbProductos;
     // End of variables declaration//GEN-END:variables
 }

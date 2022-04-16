@@ -102,6 +102,26 @@ public class clsQuerys {
         return modeloConDatos;
     }
 
+    public String[] fncDetalleProductoParaFactura(int pCodigo) {
+
+        String[] datosDeRespuesta = new String[3];
+
+        try {
+            Statement sql = clsConexion.getConexion().createStatement();
+            String query = "SELECT NOMBRE, STOCK, PRECIO FROM TB_PRODUCTO WHERE COD_PRODUCTO = " + pCodigo + ";";
+            System.out.println(query);
+            ResultSet resultado = sql.executeQuery(query);
+            if (resultado != null && resultado.next()) {
+                datosDeRespuesta[0] = resultado.getString("NOMBRE");
+                datosDeRespuesta[1] = resultado.getString("STOCK");
+                datosDeRespuesta[2] = resultado.getString("PRECIO");
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex.toString());
+        }
+        return datosDeRespuesta;
+    }
+
     public String[] fcnDetalleUnProducto(String indice) {
 
         String[] detallesDeProducto = new String[8];
@@ -127,8 +147,8 @@ public class clsQuerys {
 
         return detallesDeProducto;
     }
-    
-        public String[] fcnDetalleUnProductoPorNombre(String nombre) {
+
+    public String[] fcnDetalleUnProductoPorNombre(String nombre) {
 
         String[] detallesDeProducto = new String[8];
 
@@ -239,7 +259,7 @@ public class clsQuerys {
         try {
             Statement sql = clsConexion.getConexion().createStatement();
             String Query = "INSERT INTO TB_CLIENTE (NIT, NOMBRE, DIRECCION) "
-                    + "VALUES ('"+pNit+"','"+pNombre+"','"+pDireccion+"');";
+                    + "VALUES ('" + pNit + "','" + pNombre + "','" + pDireccion + "');";
 
             sql.executeUpdate(Query);
 
