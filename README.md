@@ -1,0 +1,72 @@
+# Gestion Farmacia
+
+Software para gestionar los manejo de inventario de productos, clientes y facturas de una farmacia. Con las opciones para crear nuevos registro, eliminar y actualizar los existentes, asi como la generacion de reportes.
+## Tech Stack
+Aplicacion de escritorio
+
+**Cliente:** Java 17.0.2
+
+**DB:** SQL Server
+
+
+
+
+## Scrip de la Base de Datos
+
+Tabla Productos:
+
+```bash
+CREATE TABLE TB_PRODUCTO(
+    COD_PRODUCTO INT IDENTITY PRIMARY KEY,
+    NOMBRE NVARCHAR(50) NOT NULL,
+    TIPO_MEDICAMENTO NVARCHAR(50) NOT NULL,
+    FARMACEUTICA NVARCHAR(50) NOT NULL,
+    PRESENTACION NVARCHAR(50) NOT NULL,
+    COMPOSICION NVARCHAR(500) NOT NULL,
+    STOCK INT NOT NULL,
+    PRECIO NUMERIC(9,2)
+)
+```
+Tabla Clientes:
+
+```bash
+CREATE TABLE TB_CLIENTE(
+	NIT NVARCHAR(9) PRIMARY KEY,
+	NOMBRE NVARCHAR(100) NOT NULL,
+	DIRECCION NVARCHAR(250)
+)
+```
+Tabla Facturas:
+```bash
+CREATE TABLE TB_FACTURA(
+	FACTURA INT IDENTITY PRIMARY KEY,
+	NIT NVARCHAR(9),
+	FECHA DATETIME,
+	CANTIDAD_PRODUCTOS INT,
+	MONTO_TOTAL NUMERIC(9,2),
+	ESTATUS NVARCHAR(1)
+)
+
+ALTER TABLE TB_FACTURA
+ADD FOREIGN KEY (NIT) 
+REFERENCES TB_CLIENTE(NIT);
+```
+
+Tabla Detalles de Factura:
+```bash
+CREATE TABLE TB_DETALLE_FACTURA(
+	FACTURA INT NOT NULL,
+	CORRELATIVO INT,
+	COD_PRODUCTO INT,
+	CANTIDAD INT,
+	PRECIO NUMERIC(9,2)
+)
+
+ALTER TABLE TB_DETALLE_FACTURA
+ADD FOREIGN KEY (COD_PRODUCTO) 
+REFERENCES TB_PRODUCTO(COD_PRODUCTO);
+
+ALTER TABLE TB_DETALLE_FACTURA
+ADD FOREIGN KEY (FACTURA) 
+REFERENCES TB_FACTURA(FACTURA);
+```
