@@ -1,6 +1,6 @@
 # Gestion Farmacia
 
-Software para gestionar los manejo de inventario de productos, clientes y facturas de una farmacia. Con las opciones para crear nuevos registro, eliminar y actualizar los existentes, asi como la generacion de reportes.
+Software para gestionar el manejo de inventario de productos, clientes y facturas de una farmacia. Con las opciones para crear nuevos registro, eliminar y actualizar los existentes, así como la generación de reportes.
 ## Tech Stack
 Aplicacion de escritorio
 
